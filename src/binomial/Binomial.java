@@ -23,9 +23,6 @@ public class Binomial {
     public int calculateBinomial_Memorandum(int k, int n, int[][] array) {
         this.COUNT_MEMORANDUM++;
         int result = 0;
-        if (k > n) {
-            k = n - k;
-        }
         if (k == 1) {
             return n;
         }
