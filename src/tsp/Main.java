@@ -42,8 +42,8 @@ public class Main {
     private static Iterable<Node> allFeasibleChildren(Node node) {
         ArrayList<Node> nodeList = new ArrayList<>();
         int depth = node.depth + 1;
-        for (int i = 0; i < array[0].length; i++) {
-            if (node.partialSolution.containsValue(i + 1) || i == depth - 1 || node.partialSolution.containsKey(i + 1))
+        for (int i = 1; i < array[0].length; i++) {
+            if (node.partialSolution.containsValue(i) || i == depth - 1)
                 continue;
             Node child = new Node();
             child.partialSolution.putAll(node.partialSolution);
@@ -55,12 +55,21 @@ public class Main {
         return nodeList;
     }
 
-
     private static int getLowerBound(Node node) {
         int lb = 0;
         for (int i = 0; i < array.length; i++) {
-            //如果这个节点已经被选过
-            if (node.partialSolution.containsKey(i + 1)) {
+            //如果当前节点被选过并且已经选了下一个结
+            if (node.partialSolution.containsKey(i + 1) && node.partialSolution.containsValue(i)) {
+              int need = 0;
+              for (int x = 1; x <= node.partialSolution.size(); x++) {
+                if (node.partialSolution.get(x) == i) {
+                  need = x - 1;
+                  break;
+                }
+              }
+              lb += array[i][node.partialSolution.get(i + 1)] + array[i][need];
+            }//如果这个节点已经被选过
+            else if (node.partialSolution.containsKey(i + 1)) {
                 int tempMin = infinity;
                 for (int j = 0; j < array[0].length; j++) {
                     if (array[i][j] == 0 || j == node.partialSolution.get(i + 1))
