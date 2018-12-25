@@ -1,21 +1,22 @@
 package tsp;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.PriorityQueue;
 
 public class Main {
     static int bestSoFar = 1000;
     static int infinity = 1000;
-    private static int[][] array = {{0, 3, 1, 5, 8},
-            {3, 0, 6, 7, 9},
-            {1, 6, 0, 4, 2},
-            {5, 7, 4, 0, 3},
-            {8, 9, 2, 3, 0}};
-//    private static int[][] array =
-//           {{0, 2, 5, 7},
-//            {2, 0, 8, 3},
-//            {5, 8, 0, 1},
-//            {7, 3, 1, 0}};
+//    private static int[][] array = {{0, 3, 1, 5, 8},
+//            {3, 0, 6, 7, 9},
+//            {1, 6, 0, 4, 2},
+//            {5, 7, 4, 0, 3},
+//            {8, 9, 2, 3, 0}};
+    private static int[][] array =
+           {{0, 2, 5, 7},
+            {2, 0, 8, 3},
+            {5, 8, 0, 1},
+            {7, 3, 1, 0}};
 
     public static void main(String[] args) {
         PriorityQueue<Node> S = new PriorityQueue();
@@ -47,8 +48,12 @@ public class Main {
                 continue;
             Node child = new Node();
             child.partialSolution.putAll(node.partialSolution);
-            child.partialSolution.put(depth, i);
             child.depth = depth;
+            if (child.partialSolution.size() > 0) {
+                child.partialSolution.put(getLast(child), i);
+            } else {
+                child.partialSolution.put(depth, i);
+            }
             child.lowerBound = getLowerBound(child);
             nodeList.add(child);
         }
@@ -61,12 +66,13 @@ public class Main {
             //如果当前节点被选过并且已经选了下一个结
             if (node.partialSolution.containsKey(i + 1) && node.partialSolution.containsValue(i)) {
               int need = 0;
-              for (int x = 1; x <= node.partialSolution.size(); x++) {
-                if (node.partialSolution.get(x) == i) {
-                  need = x - 1;
-                  break;
+              Iterator<Integer> keys = node.partialSolution.keySet().iterator();
+                while (keys.hasNext()) {
+                    int key = keys.next();
+                    if (node.partialSolution.get(key) == i) {
+                        need = key - 1;
+                    }
                 }
-              }
               lb += array[i][node.partialSolution.get(i + 1)] + array[i][need];
             }//如果这个节点已经被选过
             else if (node.partialSolution.containsKey(i + 1)) {
@@ -80,10 +86,11 @@ public class Main {
                 lb += tempMin + array[i][node.partialSolution.get(i + 1)];
             } else if (node.partialSolution.containsValue(i)) {
                 int need = 0;
-                for (int x = 1; x <= node.partialSolution.size(); x++) {
-                    if (node.partialSolution.get(x) == i) {
-                        need = x - 1;
-                        break;
+                Iterator<Integer> keys = node.partialSolution.keySet().iterator();
+                while (keys.hasNext()) {
+                    int key = keys.next();
+                    if (node.partialSolution.get(key) == i) {
+                        need = key - 1;
                     }
                 }
                 int tempMin = infinity;
@@ -115,6 +122,15 @@ public class Main {
 
         }
         int result = (int) Math.ceil((double)lb / (double)2);
+        return result;
+    }
+
+    private static int getLast(Node node) {
+        int result = node.partialSolution.get(1);
+        for (int i = 2; i <= node.partialSolution.size(); i++) {
+            result = node.partialSolution.get(result + 1);
+        }
+        result++;
         return result;
     }
 
