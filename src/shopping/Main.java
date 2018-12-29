@@ -8,8 +8,8 @@ public class Main {
     public static void main(String[] args) {
         ArrayList<Commodity> commodities = new ArrayList<>();
         HashMap<Integer, Integer> item = new HashMap<>();
-        item.put(1, 5);
-        item.put(2, 5);
+        item.put(1, 3);
+        item.put(2, 2);
         HashMap<Integer, Integer> c1 = new HashMap<Integer, Integer>();
         HashMap<Integer, Integer> c2 = new HashMap<Integer, Integer>();
         HashMap<Integer, Integer> c3 = new HashMap<Integer, Integer>();
