@@ -14,7 +14,7 @@ public class Solution {
         Node node = new Node(8, 0, 0, null);
         Queue<Node> result = new LinkedList<>();
         System.out.println("初始: 8 0 0");
-        bfs(result, node);
+        findFourPint(result, node);
         System.out.println("正确操作:");
         result.add(node);
         while (result.size() > 0) {
@@ -23,7 +23,7 @@ public class Solution {
         }
     }
 
-    private static boolean bfs(Queue<Node> result, Node node) {
+    private static boolean findFourPint(Queue<Node> result, Node node) {
         if (node.a == des || node.b == des || node.c == des) {
             return true;
         }
@@ -78,7 +78,7 @@ public class Solution {
         }
         while (queue.size() > 0) {
             Node tempNode = queue.poll();
-            boolean isAdd = bfs(result, tempNode);
+            boolean isAdd = findFourPint(result, tempNode);
             if (isAdd) {
                 result.add(tempNode);
                 return true;

@@ -7,7 +7,7 @@ import java.io.Writer;
 public class Main {
     public static void main(String[] args) {
         int k = 25;
-        int n = 50;
+        int n = 30;
         int[][] array = new int[k + 1][n + 1];
         Binomial binomial = new Binomial();
         System.out.println("从" + n + "个中挑选出" + k + "个");

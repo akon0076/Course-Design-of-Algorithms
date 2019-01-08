@@ -75,33 +75,33 @@ public class Main {
         jobs.add(new Job(5, 7, 4));
         jobs.add(new Job(7, 12, 17));
         jobs.add(new Job(18, 88, 17));
-        int value = solution(jobs);
-        System.out.println(value);
+//        int value = solution(jobs);
+//        System.out.println(value);
         Main wis = new Main();
         wis.init();
         wis.Find_Solution();
     }
 
-    private static int solution(ArrayList<Job> jobs) {
-        if (jobs.size() <= 0) {
-            return 0;
-        }
-        int maxValue = 0;
-        for (int i = 0; i < jobs.size(); i++) {
-            ArrayList<Job> cloneJob = (ArrayList<Job>) jobs.clone();
-            int value = cloneJob.get(i).value;
-            cloneJob.remove(i);
-            for (int j = 0; j < cloneJob.size(); j++) {
-                if (cloneJob.get(j).start <= jobs.get(i).end) {
-                    cloneJob.remove(j);
-                    j--;
-                }
-            }
-            value += solution(cloneJob);
-            if (maxValue < value) {
-                maxValue = value;
-            }
-        }
-        return maxValue;
-    }
+//    private static int solution(ArrayList<Job> jobs) {
+//        if (jobs.size() <= 0) {
+//            return 0;
+//        }
+//        int maxValue = 0;
+//        for (int i = 0; i < jobs.size(); i++) {
+//            ArrayList<Job> cloneJob = (ArrayList<Job>) jobs.clone();
+//            int value = cloneJob.get(i).value;
+//            cloneJob.remove(i);
+//            for (int j = 0; j < cloneJob.size(); j++) {
+//                if (cloneJob.get(j).start <= jobs.get(i).end) {
+//                    cloneJob.remove(j);
+//                    j--;
+//                }
+//            }
+//            value += solution(cloneJob);
+//            if (maxValue < value) {
+//                maxValue = value;
+//            }
+//        }
+//        return maxValue;
+//    }
 }

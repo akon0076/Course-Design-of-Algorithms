@@ -124,12 +124,10 @@ public class SortStage extends Application {
             while (low <= high && list[low] <= pivot) {
                 low++;
             }
-
             // Search backward from right
             while (low <= high && list[high] > pivot) {
                 high--;
             }
-
             // Swap two elements in the list
             if (high > low) {
                 int temp = list[high];
